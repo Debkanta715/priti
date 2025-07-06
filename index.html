@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When I Saw You</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS Animation CDN -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    .light-mode {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .dark-mode {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+    
+    /* Animated Background Elements */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .floating-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 8s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      left: 80%;
+      animation-delay: 2s;
+      animation-duration: 10s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+      animation-duration: 7s;
+    }
+    
+    .shape:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 10%;
+      left: 70%;
+      animation-delay: 1s;
+      animation-duration: 9s;
+    }
+    
+    .shape:nth-child(5) {
+      width: 40px;
+      height: 40px;
+      top: 40%;
+      left: 90%;
+      animation-delay: 3s;
+      animation-duration: 6s;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+      }
+      25% {
+        transform: translateY(-20px) rotate(90deg);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-40px) rotate(180deg);
+        opacity: 0.8;
+      }
+      75% {
+        transform: translateY(-20px) rotate(270deg);
+        opacity: 0.6;
+      }
+    }
+    
+    /* Sparkle Effect */
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 3s linear infinite;
+    }
+    
+    @keyframes sparkle {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+    
+    /* Gradient Animation */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -2;
+    }
+    
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    /* Light Mode Gradient */
+    .light-mode .gradient-bg {
+      background: linear-gradient(45deg, #f093fb, #f5576c, #ff9a9e, #fecfef);
+      background-size: 400% 400%;
+    }
+    
+    /* Dark Mode Gradient */
+    .dark-mode .gradient-bg {
+      background: linear-gradient(45deg, #2c3e50, #34495e, #4a5568, #2d3748);
+      background-size: 400% 400%;
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .glass-effect-dark {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .heart {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/2764.png') no-repeat center/contain;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: float 4s linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { transform: translateY(-300px) scale(1.2); opacity: 0; }
+    }
+    
+    .puzzle-piece {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .puzzle-piece:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .section-card {
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    
+    .section-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    
+    .text-glow {
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+    
+    .text-glow-dark {
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    
+    /* No way message animation */
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+      }
+    }
+    
+    /* Mobile-specific fixes */
+    @media (max-width: 640px) {
+      #music-toggle {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .section-card {
+        margin: 0.5rem 0;
+        padding: 1.5rem;
+      }
+      
+      .puzzle-piece {
+        min-width: 60px;
+        min-height: 60px;
+      }
+      
+      .no-way-message {
+        font-size: 12px !important;
+        padding: 6px 10px !important;
+      }
+    }
+    
+    /* Image loading styles */
+    .image-container {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .image-container img {
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .image-container img.loading {
+      opacity: 0;
+    }
+    
+    .image-container img.loaded {
+      opacity: 1;
+    }
+    
+    .image-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    /* Ensure images display properly */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Fix for circular images */
+    .rounded-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Fix for slider images */
+    #slider-track img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    /* Fix for timeline images */
+    .timeline-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="light-mode text-white transition-all duration-500">
+  <!-- Animated Background -->
+  <div class="gradient-bg"></div>
+  <div class="bg-animation">
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+  
+  <!-- Header Hero Section -->
+  <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-400/30 via-pink-400/30 to-blue-400/30"></div>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Dreamy background" class="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"/>
+    <div class="relative z-10 text-center px-4 glass-effect rounded-3xl p-8 max-w-4xl mx-4">
+      <!-- Circular Image Box -->
+      <div class="mb-8 flex flex-col items-center">
+        <div class="relative group mb-4">
+          <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:border-white/50">
+            <img 
+              src="WhatsApp Image 2025-07-07 at 01.27.33_066a4d2e.jpg" 
+              alt="Special Someone" 
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            >
+          </div>
+          <!-- Glow effect around the image -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400/20 to-purple-400/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
+        
+        <!-- Personalized Greeting -->
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white text-glow mb-2" data-en="HI, Priti (tuli)" data-bn="হাই, প্রীতি (তুলি)">HI, Priti (tuli)</h2>
+          <p class="text-lg sm:text-xl opacity-90" data-en="how are you?" data-bn="কেমন আছো?">how are you?</p>
+        </div>
+      </div>
+      
+      <h1 class="text-4xl sm:text-6xl font-bold text-white text-glow mb-6 leading-tight" data-en="I didn't expect anything that day...<br>until I saw you." data-bn="সেদিন আমি কিছুই আশা করিনি...<br>যতক্ষণ না তোমাকে দেখলাম।">I didn't expect anything that day...<br>until I saw you.</h1>
+      <p class="text-lg sm:text-xl opacity-90" data-en="A story that began with a simple glance" data-bn="একটি গল্প যা একটি সাধারণ দৃষ্টিতে শুরু হয়েছিল">A story that began with a simple glance</p>
+    </div>
+    <!-- Heart Animation Container -->
+    <div id="hearts-container" class="absolute inset-0 pointer-events-none"></div>
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="absolute top-6 right-6 z-20 glass-effect rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300">
+      <span id="theme-icon" class="text-2xl">🌙</span>
+    </button>
+    
+    <!-- Language Toggle -->
+    <button id="language-toggle" class="absolute top-6 left-6 z-20 glass-effect rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300">
+      <span id="language-icon" class="text-lg font-bold">EN</span>
+    </button>
+  </header>
+
+  <!-- Puzzle Section -->
+  <section class="py-16 flex flex-col items-center" data-aos="fade-up">
+    <div class="section-card glass-effect max-w-2xl mx-4">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white text-glow mb-4" data-en="Solve the Puzzle" data-bn="পাজল সমাধান করুন">Solve the Puzzle</h2>
+        <p class="text-lg opacity-90" data-en="Click the pieces to reveal something special" data-bn="কিছু বিশেষ দেখানোর জন্য টুকরোগুলিতে ক্লিক করুন">Click the pieces to reveal something special</p>
+      </div>
+      
+      <!-- Puzzle Grid -->
+      <div class="grid grid-cols-3 gap-3 mb-8 max-w-xs mx-auto">
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="1">1</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="2">2</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="3">3</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-cyan-500 to-green-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="4">4</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-green-500 to-yellow-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="5">5</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="6">6</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="7">7</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="8">8</div>
+        <div class="puzzle-piece w-24 h-24 bg-gradient-to-br from-pink-500 to-indigo-500 rounded-xl cursor-pointer flex items-center justify-center text-white font-bold text-xl shadow-lg" data-piece="9">9</div>
+      </div>
+    
+    <!-- Image Slider (Hidden initially) -->
+    <div id="image-slider" class="hidden w-full max-w-2xl mx-4">
+      <div class="section-card glass-effect">
+        <div class="relative">
+          <div id="slider-container" class="overflow-hidden rounded-2xl shadow-2xl">
+            <div id="slider-track" class="flex transition-transform duration-500">
+              <img src="WhatsApp Image 2025-07-07 at 01.27.33_066a4d2e.jpg" alt="Love 1" class="w-full h-80 object-cover flex-shrink-0"/>
+              <img src="WhatsApp Image 2025-07-07 at 01.27.34_72e7901c.jpg" alt="Love 2" class="w-full h-80 object-cover flex-shrink-0"/>
+              <img src="WhatsApp Image 2025-07-07 at 01.27.34_229b45d0.jpg" alt="Love 3" class="w-full h-80 object-cover flex-shrink-0"/>
+            </div>
+          </div>
+          <button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 glass-effect rounded-full p-3 shadow-lg hover:scale-110 transition-transform">←</button>
+          <button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 glass-effect rounded-full p-3 shadow-lg hover:scale-110 transition-transform">→</button>
+        </div>
+        <div class="text-center mt-6">
+          <p class="text-xl text-white text-glow" data-en="And just like that, I caught myself smiling — without even realizing it." data-bn="এবং ঠিক সেভাবেই, আমি নিজেকে হাসতে দেখলাম — বুঝতেও পারিনি।">And just like that, I caught myself smiling — without even realizing it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crush Timeline Section -->
+  <section class="py-16" id="timeline">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="section-card glass-effect">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white text-glow text-center mb-12" data-en="The Story Timeline" data-bn="গল্পের সময়রেখা">The Story Timeline</h2>
+        <div class="flex flex-col gap-12 relative">
+          <!-- Timeline Line -->
+          <div class="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-400 to-purple-500 rounded-full"></div>
+          
+          <!-- First Sight -->
+          <div class="flex items-center gap-6 relative" data-aos="fade-right">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">1</div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white mb-2" data-en="First Sight" data-bn="প্রথম দর্শন">First Sight</h3>
+              <p class="text-lg opacity-90" data-en="When I first saw you" data-bn="যখন আমি প্রথম তোমাকে দেখলাম">When I first saw you</p>
+            </div>
+            <img src="WhatsApp Image 2025-07-07 at 01.27.33_066a4d2e.jpg" alt="First Sight" class="w-20 h-20 rounded-full object-cover shadow-lg"/>
+          </div>
+          
+          <!-- Heartbeat -->
+          <div class="flex items-center gap-6 relative" data-aos="fade-left">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">2</div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white mb-2" data-en="Heartbeat" data-bn="হৃদস্পন্দন">Heartbeat</h3>
+              <p class="text-lg opacity-90" data-en="My heart paused" data-bn="আমার হৃদয় থেমে গেল">My heart paused</p>
+            </div>
+            <img src="WhatsApp Image 2025-07-07 at 01.27.34_18775c8e.jpg" alt="Heartbeat" class="w-20 h-20 rounded-full object-cover shadow-lg"/>
+          </div>
+          
+          <!-- That Smile -->
+          <div class="flex items-center gap-6 relative" data-aos="fade-right">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">3</div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white mb-2" data-en="That Smile" data-bn="সেই হাসি">That Smile</h3>
+              <p class="text-lg opacity-90" data-en="You smiled... and I fell." data-bn="তুমি হেসেছিলে... এবং আমি পড়ে গেলাম।">You smiled... and I fell.</p>
+            </div>
+            <img src="WhatsApp Image 2025-07-07 at 01.27.34_72e7901c.jpg" alt="That Smile" class="w-20 h-20 rounded-full object-cover shadow-lg"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="py-16 flex flex-col items-center" data-aos="zoom-in">
+    <div class="section-card glass-effect max-w-4xl mx-4 text-center">
+      <blockquote class="text-3xl sm:text-4xl italic text-white text-glow mb-6" data-en="&quot;You were just a story… and I drowned in your pages.&quot;" data-bn="&quot;তুমি শুধু একটি গল্প ছিলে… এবং আমি তোমার পাতায় ডুবে গেছি।&quot;">
+        "Tumi chhilen ekta golpo, ar ami sheta porte giye bheshe gechi bhalobashay."
+      </blockquote>
+      <p class="text-xl opacity-90" data-en="&quot;You were just a story… and I drowned in your pages.&quot;" data-bn="&quot;তুমি শুধু একটি গল্প ছিলে… এবং আমি তোমার পাতায় ডুবে গেছি।&quot;">"You were just a story… and I drowned in your pages."</p>
+    </div>
+  </section>
+
+  <!-- Final Message Section -->
+  <section class="py-16 flex flex-col items-center" id="final-message">
+    <div class="section-card glass-effect max-w-2xl mx-4 text-center">
+      <button id="open-message" class="flex flex-col items-center focus:outline-none group" data-aos="fade-up">
+        <span class="text-6xl animate-bounce group-hover:scale-110 transition-transform">💌</span>
+        <span class="mt-4 text-xl text-white text-glow">Tap to open</span>
+      </button>
+      <div id="message-content" class="hidden mt-8 text-2xl text-center text-white text-glow" data-en="This page isn't about love at first sight...<br>it's about the feeling that hasn't left me since." data-bn="এই পাতাটি প্রথম দর্শনে প্রেমের কথা নয়...<br>এটি সেই অনুভূতির কথা যা তখন থেকে আমাকে ছাড়েনি।">
+        This page isn't about love at first sight...<br>it's about the feeling that hasn't left me since.
+      </div>
+    </div>
+  </section>
+
+  <!-- Secret Message Section -->
+  <section class="py-16 flex flex-col items-center" id="secret-message">
+    <div class="section-card glass-effect max-w-2xl mx-4 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white text-glow mb-8" data-aos="fade-up" data-en="🔒 Secret Message Box" data-bn="🔒 গোপন বার্তা বাক্স">
+        🔒 Secret Message Box
+      </h2>
+      <p class="text-lg opacity-90 mb-8" data-aos="fade-up" data-aos-delay="200" data-en="Enter the special PIN to unlock a hidden message (your phone number)" data-bn="গোপন বার্তা আনলক করতে বিশেষ পিন প্রবেশ করান (আপনার ফোন নম্বর)">
+        Enter the special PIN to unlock a hidden message (your phone number)
+      </p>
+      
+      <div class="space-y-4" data-aos="fade-up" data-aos-delay="400">
+        <input 
+          type="text" 
+          id="pinInput" 
+          placeholder="Enter 10-digit PIN" 
+          maxlength="10"
+          class="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/70 focus:outline-none focus:border-white/50 transition-all duration-300"
+          data-en-placeholder="Enter 10-digit PIN"
+          data-bn-placeholder="১০-অঙ্কের পিন প্রবেশ করান"
+        >
+        <button 
+          onclick="checkSecretPIN()"
+          class="bg-gradient-to-r from-purple-400 to-pink-500 hover:from-purple-500 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+          data-en="🔓 Unlock Message"
+          data-bn="🔓 বার্তা আনলক করুন"
+        >
+          🔓 Unlock Message
+        </button>
+      </div>
+      
+      <div id="errorMessage" class="mt-4 text-red-300 font-medium hidden"></div>
+      
+      <div id="secretMessage" class="hidden mt-8 p-6 bg-gradient-to-r from-purple-400/20 to-pink-500/20 rounded-2xl border border-purple-300/30 text-left">
+        <h3 class="text-2xl font-bold text-white text-glow mb-4" data-en="💌 Secret Message:" data-bn="💌 গোপন বার্তা:">💌 Secret Message:</h3>
+        <div class="text-white opacity-90 space-y-4 text-lg leading-relaxed">
+          <p data-en="I've really had a crush on you for a while. I actually messaged you on Instagram, but I guess you didn't see it. That's why I left a comment on your post instead." data-bn="আমি আসলেই অনেকদিন ধরে তোমার উপর ক্রাশ করছি। আমি আসলে তোমাকে ইনস্টাগ্রামে মেসেজ করেছিলাম, কিন্তু মনে হয় তুমি দেখনি। তাই আমি তোমার পোস্টে কমেন্ট করেছিলাম।">I've really had a crush on you for a while. I actually messaged you on Instagram, but I guess you didn't see it. That's why I left a comment on your post instead.</p>
+          <p data-en="If you've never talked to me, how would you really know what kind of person I am?" data-bn="যদি তুমি কখনও আমার সাথে কথা না বলো, তাহলে তুমি কীভাবে জানবে আমি কী ধরনের মানুষ?">If you've never talked to me, how would you really know what kind of person I am?</p>
+          <p data-en="If you're not interested, that's totally fine—just let me know, and I promise I won't bother you again. But if there's even a small chance, I'd really appreciate the opportunity." data-bn="যদি তুমি আগ্রহী না হও, তাহলে ঠিক আছে—শুধু আমাকে জানাও, এবং আমি প্রতিশ্রুতি দিচ্ছি আমি আর তোমাকে বিরক্ত করব না। কিন্তু যদি সামান্য সম্ভাবনাও থাকে, তাহলে আমি সত্যিই সুযোগটি পছন্দ করব।">If you're not interested, that's totally fine—just let me know, and I promise I won't bother you again. But if there's even a small chance, I'd really appreciate the opportunity.</p>
+        </div>
+        <div class="mt-6 text-center">
+          <span class="text-3xl animate-pulse">💕✨💕</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Birthday Special Section -->
+  <section class="py-16 flex flex-col items-center" id="birthday-special">
+    <div class="section-card glass-effect max-w-4xl mx-4 text-center relative">
+      <!-- Birthday Alarm Corner -->
+      <div class="absolute top-4 right-4 bg-gradient-to-r from-red-400 to-pink-500 rounded-full px-4 py-2 shadow-lg animate-pulse">
+        <span class="text-white font-bold text-sm">🎂 18.04.200.....</span>
+      </div>
+      
+      <h2 class="text-4xl sm:text-5xl font-bold text-white text-glow mb-8" data-aos="fade-up" data-en="🎉 Happy Birthday, Priti! 🎉" data-bn="🎉 শুভ জন্মদিন, প্রীতি! 🎉">
+        🎉 Happy Birthday, Priti! 🎉
+      </h2>
+      
+      <div class="text-white opacity-90 space-y-6 text-xl leading-relaxed mb-8" data-aos="fade-up" data-aos-delay="200">
+        <p data-en="Your special day has passed, but my wishes for you will never end!" data-bn="তোমার বিশেষ দিনটি কেটে গেছে, কিন্তু তোমার জন্য আমার শুভেচ্ছা কখনও শেষ হবে না!">
+          Your special day has passed, but my wishes for you will never end!
+        </p>
+        <p data-en="Every day should be as beautiful as you are." data-bn="প্রতিদিন তোমার মতো সুন্দর হওয়া উচিত।">
+          Every day should be as beautiful as you are.
+        </p>
+        <p data-en="May all your dreams come true and your smile never fade." data-bn="তোমার সব স্বপ্ন সত্যি হোক এবং তোমার হাসি কখনও ম্লান না হোক।">
+          May all your dreams come true and your smile never fade.
+        </p>
+      </div>
+      
+      <!-- Birthday Animation -->
+      <div class="flex justify-center space-x-4 mb-8">
+        <span class="text-4xl animate-bounce">🎂</span>
+        <span class="text-4xl animate-bounce" style="animation-delay: 0.2s;">🎈</span>
+        <span class="text-4xl animate-bounce" style="animation-delay: 0.4s;">🎁</span>
+        <span class="text-4xl animate-bounce" style="animation-delay: 0.6s;">✨</span>
+        <span class="text-4xl animate-bounce" style="animation-delay: 0.8s;">💖</span>
+      </div>
+      
+      <!-- Birthday Wish Button -->
+      <button 
+        id="birthday-wish-btn"
+        class="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl mb-8"
+        data-aos="fade-up" 
+        data-aos-delay="400"
+        data-en="🎊 Send Birthday Wish"
+        data-bn="🎊 জন্মদিনের শুভেচ্ছা পাঠান"
+      >
+        🎊 Send Birthday Wish
+      </button>
+      
+      <!-- Hidden Birthday Message -->
+      <div id="birthday-message" class="hidden mt-8 p-6 bg-gradient-to-r from-pink-400/20 to-purple-500/20 rounded-2xl border border-pink-300/30">
+        <h3 class="text-2xl font-bold text-white text-glow mb-4" data-en="🎂 Special Birthday Message 🎂" data-bn="🎂 বিশেষ জন্মদিনের বার্তা 🎂">🎂 Special Birthday Message 🎂</h3>
+        <div class="text-white opacity-90 space-y-4 text-lg leading-relaxed">
+          <p data-en="Dear Priti, even though your birthday has passed, I want you to know that you deserve to be celebrated every single day." data-bn="প্রিয় প্রীতি, যদিও তোমার জন্মদিন কেটে গেছে, আমি চাই তুমি জানো যে তুমি প্রতিদিন উদযাপনের যোগ্য।">
+            Dear Priti, even though your birthday has passed, I want you to know that you deserve to be celebrated every single day.
+          </p>
+          <p data-en="Your presence in this world makes it a better place. Thank you for being you!" data-bn="এই পৃথিবীতে তোমার উপস্থিতি এটিকে আরও সুন্দর করে তোলে। তুমি হওয়ার জন্য ধন্যবাদ!">
+            Your presence in this world makes it a better place. Thank you for being you!
+          </p>
+          <p data-en="Happy Birthday, beautiful! 🎉💕" data-bn="শুভ জন্মদিন, সুন্দরী! 🎉💕">
+            Happy Birthday, beautiful! 🎉💕
+          </p>
+        </div>
+        <div class="mt-6 text-center">
+          <span class="text-5xl animate-pulse">🎂🎈🎁✨💖</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sender Reveal Section -->
+  <section class="py-16 flex flex-col items-center" id="sender-reveal">
+    <div class="section-card glass-effect max-w-2xl mx-4 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white text-glow mb-8" data-aos="fade-up" data-en="🤔 Who Sent This?" data-bn="🤔 কে পাঠিয়েছে?">
+        🤔 Who Sent This?
+      </h2>
+      <p class="text-lg opacity-90 mb-8" data-aos="fade-up" data-aos-delay="200" data-en="Curious to know who created this special page for you?" data-bn="তোমার জন্য এই বিশেষ পাতাটি কে তৈরি করেছে জানতে আগ্রহী?">
+        Curious to know who created this special page for you?
+      </p>
+      
+      <button 
+        id="reveal-sender-btn"
+        class="bg-gradient-to-r from-blue-400 to-purple-500 hover:from-blue-500 hover:to-purple-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl mb-8"
+        data-aos="fade-up" 
+        data-aos-delay="400"
+        data-en="👤 Reveal Sender"
+        data-bn="👤 পাঠক প্রকাশ করুন"
+      >
+        👤 Reveal Sender
+      </button>
+      
+      <!-- Hidden Sender Info -->
+      <div id="sender-info" class="hidden mt-8 p-6 bg-gradient-to-r from-blue-400/20 to-purple-500/20 rounded-2xl border border-blue-300/30">
+        <div class="flex flex-col items-center space-y-4">
+          <!-- Sender's Picture -->
+          <div class="relative group">
+            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:border-white/50">
+              <img 
+                src="#" 
+                alt="Sender" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              >
+            </div>
+            <!-- Glow effect around the image -->
+            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+          
+          <!-- Sender's Name -->
+          <div class="text-center">
+            <h3 class="text-2xl sm:text-3xl font-bold text-white text-glow mb-2" data-en="From: [Your Name]" data-bn="Ask Trishna for the answer">Ask Trishna for the answer</h3>
+            <p class="text-lg opacity-90" data-en="With lots of love 💕" data-bn="অনেক ভালোবাসা সহ 💕">With lots of love 💕</p>
+          </div>
+          
+          <!-- Contact Info (Optional) -->
+          <div class="mt-4 text-center">
+            <p class="text-sm opacity-80" data-en="Want to respond? Message me!" data-bn="উত্তর দিতে চাও? আমাকে মেসেজ করো!">Want to respond? Message me!</p>
+            <div class="flex justify-center space-x-4 mt-3">
+              <span class="text-lg">📱</span>
+              <span class="text-lg">💬</span>
+              <span class="text-lg">📧</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Hidden Message Section -->
+  <section class="py-16 flex flex-col items-center" id="final-hidden-message">
+    <div class="section-card glass-effect max-w-4xl mx-4 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white text-glow mb-8" data-aos="fade-up" data-en="💭 One Last Thing..." data-bn="💭 একটি শেষ কথা...">
+        💭 One Last Thing...
+      </h2>
+      <div class="text-white opacity-90 space-y-6 text-xl leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+        <p data-en="You might not see me, but I see you through your friend's mobile." data-bn="তুমি আমাকে দেখতে পাচ্ছ না, কিন্তু আমি তোমার বন্ধুর মোবাইল দিয়ে তোমাকে দেখছি।">
+          You might not see me, but I see you through your friend's mobile.
+        </p>
+        <p data-en="Every time you scroll through your friend's phone, I'm there, watching, hoping you'll notice." data-bn="প্রতিবার তুমি তোমার বন্ধুর ফোনে স্ক্রল করো, আমি সেখানে আছি, দেখছি, আশা করছি তুমি লক্ষ্য করবে।">
+          Every time you scroll through your friend's phone, I'm there, watching, hoping you'll notice.
+        </p>
+        <p data-en="Maybe one day, you'll see me too." data-bn="হয়তো একদিন, তুমিও আমাকে দেখবে।">
+          Maybe one day, you'll see me too.
+        </p>
+      </div>
+      <div class="mt-8 text-center">
+        <span class="text-4xl animate-pulse">👀💕👀</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Choice Section -->
+  <section class="py-16 flex flex-col items-center" id="final-choice">
+    <div class="section-card glass-effect max-w-4xl mx-4 text-center">
+      <h2 class="text-4xl sm:text-5xl font-bold text-white text-glow mb-8" data-aos="fade-up" data-en="So... what do you say? 💕" data-bn="তাহলে... তুমি কী বলো? 💕">
+        So... what do you say? 💕
+      </h2>
+      <p class="text-xl opacity-90 mb-12" data-aos="fade-up" data-aos-delay="200" data-en="Will you give me a chance to write our own story together?" data-bn="তুমি কি আমাকে একসাথে আমাদের নিজস্ব গল্প লেখার সুযোগ দেবে?">
+        Will you give me a chance to write our own story together?
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-8 justify-center items-center" data-aos="fade-up" data-aos-delay="400">
+        <!-- Accept Button -->
+        <button id="accept-btn" class="group relative overflow-hidden">
+          <div class="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+            <span class="relative z-10" data-en="💖 Accept" data-bn="💖 গ্রহণ করুন">💖 Accept</span>
+            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          </div>
+        </button>
+        
+        <!-- Reject Button -->
+        <button id="reject-btn" class="group relative overflow-hidden transition-all duration-500">
+          <div class="bg-gradient-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-2xl text-xl shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+            <span class="relative z-10" data-en="💔 Reject" data-bn="💔 প্রত্যাখ্যান">💔 Reject</span>
+            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          </div>
+        </button>
+      </div>
+      
+      <!-- Success Message (Hidden initially) -->
+      <div id="success-message" class="hidden mt-12 p-6 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-2xl border border-green-300/30">
+        <h3 class="text-3xl font-bold text-white text-glow mb-4" data-en="🎉 Yay! You said YES! 🎉" data-bn="🎉 ইয়ে! তুমি হ্যাঁ বলেছ! 🎉">🎉 Yay! You said YES! 🎉</h3>
+        <p class="text-xl text-white opacity-90" data-en="Thank you for giving me a chance! 💕" data-bn="আমাকে সুযোগ দেওয়ার জন্য ধন্যবাদ! 💕">Thank you for giving me a chance! 💕</p>
+        <div class="mt-6 text-4xl animate-bounce">💖✨💖</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 text-center text-white relative">
+    <div class="glass-effect rounded-2xl p-6 max-w-2xl mx-4 relative">
+      <audio id="bg-music" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b5b9b6b2.mp3" autoplay loop muted></audio>
+      <audio id="puzzle-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8b5b9b6b2.mp3" preload="auto"></audio>
+      <button id="music-toggle" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 glass-effect rounded-full p-2 sm:p-3 shadow-lg hover:scale-110 transition-transform z-10">
+        <span id="music-icon" class="text-lg sm:text-xl">🔇</span>
+      </button>
+      <p class="text-lg text-glow" data-en="Made with 💖 just for a smile... on your face" data-bn="💖 দিয়ে তৈরি শুধু তোমার মুখে হাসি ফোটানোর জন্য">Made with 💖 just for a smile... on your face</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Heart Animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '-40px';
+      heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.getElementById('hearts-container').appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 600);
+
+    // AOS Init
+    AOS.init({ once: true, duration: 900 });
+
+    // Final Message Reveal
+    document.getElementById('open-message').addEventListener('click', function() {
+      document.getElementById('message-content').classList.remove('hidden');
+      this.classList.add('hidden');
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+    
+    themeToggle.addEventListener('click', () => {
+      if (body.classList.contains('light-mode')) {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+        // Update glass effects for dark mode
+        document.querySelectorAll('.glass-effect').forEach(el => {
+          el.classList.remove('glass-effect');
+          el.classList.add('glass-effect-dark');
+        });
+      } else {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        themeIcon.textContent = '🌙';
+        // Update glass effects for light mode
+        document.querySelectorAll('.glass-effect-dark').forEach(el => {
+          el.classList.remove('glass-effect-dark');
+          el.classList.add('glass-effect');
+        });
+      }
+    });
+
+    // Puzzle Logic
+    let clickedPieces = [];
+    const puzzlePieces = document.querySelectorAll('.puzzle-piece');
+    const puzzleSound = document.getElementById('puzzle-sound');
+    const imageSlider = document.getElementById('image-slider');
+    const sliderTrack = document.getElementById('slider-track');
+    let currentSlide = 0;
+    const totalSlides = 3;
+
+    puzzlePieces.forEach(piece => {
+      piece.addEventListener('click', function() {
+        const pieceNumber = this.getAttribute('data-piece');
+        if (!clickedPieces.includes(pieceNumber)) {
+          clickedPieces.push(pieceNumber);
+          this.style.transform = 'scale(0.8) rotate(360deg)';
+          this.style.opacity = '0.5';
+          this.style.pointerEvents = 'none';
+          
+          // Play sound
+          puzzleSound.currentTime = 0;
+          puzzleSound.play();
+          
+          // Check if all pieces are clicked
+          if (clickedPieces.length === 9) {
+            setTimeout(() => {
+              imageSlider.classList.remove('hidden');
+              imageSlider.scrollIntoView({ behavior: 'smooth' });
+              // Start background music
+              const bgMusic = document.getElementById('bg-music');
+              bgMusic.muted = false;
+              document.getElementById('music-icon').textContent = '🔊';
+            }, 1000);
+          }
+        }
+      });
+    });
+
+    // Image Slider Controls
+    document.getElementById('next-btn').addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    });
+
+    function updateSlider() {
+      sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Final Choice Buttons
+    const acceptBtn = document.getElementById('accept-btn');
+    const rejectBtn = document.getElementById('reject-btn');
+    const successMessage = document.getElementById('success-message');
+    let rejectAttempts = 0;
+
+    // Reject button - moves away when clicked
+    rejectBtn.addEventListener('click', function() {
+      rejectAttempts++;
+      
+      // Get current position before moving
+      const currentRect = this.getBoundingClientRect();
+      const currentX = currentRect.left;
+      const currentY = currentRect.top;
+      
+      // Create a "No way" message at the current position
+      createNoWayMessage(currentX, currentY, rejectAttempts);
+      
+      // Move the button to a random position
+      const maxX = window.innerWidth - this.offsetWidth;
+      const maxY = window.innerHeight - this.offsetHeight;
+      
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+      
+      this.style.position = 'fixed';
+      this.style.left = randomX + 'px';
+      this.style.top = randomY + 'px';
+      this.style.zIndex = '9999';
+      this.style.transition = 'all 0.3s ease';
+      
+      // Add some fun text changes
+      const rejectTexts = currentLanguage === 'en' ? [
+        '💔 Reject',
+        '😢 No way',
+        '😭 Please?',
+        '🥺 Really?',
+        '😅 You sure?',
+        '🤔 Think again',
+        '😇 Pretty please?',
+        '💕 Just say yes!'
+      ] : [
+        '💔 প্রত্যাখ্যান',
+        '😢 কোনভাবেই না',
+        '😭 দয়া করে?',
+        '🥺 সত্যিই?',
+        '😅 তুমি নিশ্চিত?',
+        '🤔 আবার ভাবো',
+        '😇 দয়া করে বলো?',
+        '💕 শুধু হ্যাঁ বলো!'
+      ];
+      
+      const currentText = rejectTexts[rejectAttempts % rejectTexts.length];
+      this.querySelector('span').textContent = currentText;
+      
+      // Make button smaller each time
+      this.style.transform = `scale(${Math.max(0.5, 1 - rejectAttempts * 0.1)})`;
+      
+      // If clicked too many times, make it disappear
+      if (rejectAttempts > 8) {
+        this.style.opacity = '0';
+        this.style.pointerEvents = 'none';
+        setTimeout(() => {
+          this.style.display = 'none';
+        }, 300);
+      }
+    });
+    
+    // Function to create "No way" messages
+    function createNoWayMessage(x, y, attemptNumber) {
+      const messages = currentLanguage === 'en' ? [
+        '😢 No way',
+        '😭 Please?',
+        '🥺 Really?',
+        '😅 You sure?',
+        '🤔 Think again',
+        '😇 Pretty please?',
+        '💕 Just say yes!',
+        '💔 Rejected'
+      ] : [
+        '😢 কোনভাবেই না',
+        '😭 দয়া করে?',
+        '🥺 সত্যিই?',
+        '😅 তুমি নিশ্চিত?',
+        '🤔 আবার ভাবো',
+        '😇 দয়া করে বলো?',
+        '💕 শুধু হ্যাঁ বলো!',
+        '💔 প্রত্যাখ্যাত'
+      ];
+      
+      const message = messages[(attemptNumber - 1) % messages.length];
+      
+      const messageBox = document.createElement('div');
+      messageBox.className = 'no-way-message';
+      messageBox.style.cssText = `
+        position: fixed;
+        left: ${x}px;
+        top: ${y}px;
+        background: rgba(255, 0, 0, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 9998;
+        pointer-events: none;
+        animation: fadeInOut 2s ease-in-out forwards;
+        box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      `;
+      messageBox.textContent = message;
+      
+      document.body.appendChild(messageBox);
+      
+      // Remove the message after animation
+      setTimeout(() => {
+        if (messageBox.parentNode) {
+          messageBox.parentNode.removeChild(messageBox);
+        }
+      }, 2000);
+    }
+
+    // Accept button - shows success message
+    acceptBtn.addEventListener('click', function() {
+      // Hide the buttons
+      acceptBtn.style.display = 'none';
+      rejectBtn.style.display = 'none';
+      
+      // Show success message
+      successMessage.classList.remove('hidden');
+      successMessage.scrollIntoView({ behavior: 'smooth' });
+      
+      // Add celebration effects
+      createHeart();
+      createHeart();
+      createHeart();
+      
+      // Play a success sound (optional)
+      const successSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+      successSound.play().catch(() => {}); // Ignore if audio fails
+    });
+
+    // Music Toggle
+    const music = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+    
+    // Enhanced music toggle with better mobile support
+    musicToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      music.muted = !music.muted;
+      musicIcon.textContent = music.muted ? '🔇' : '🔊';
+      
+      // Add visual feedback
+      musicToggle.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        musicToggle.style.transform = 'scale(1)';
+      }, 150);
+    });
+    
+    // Add touch event support for mobile
+    musicToggle.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      musicToggle.style.transform = 'scale(0.95)';
+    });
+    
+    musicToggle.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      musicToggle.style.transform = 'scale(1)';
+    });
+    
+    // Secret Message PIN System
+    function checkSecretPIN() {
+      const correctPIN = "8389980347";
+      const userPIN = document.getElementById("pinInput").value.trim();
+      const messageBox = document.getElementById("secretMessage");
+      const errorBox = document.getElementById("errorMessage");
+      
+      if (userPIN === correctPIN) {
+        messageBox.classList.remove('hidden');
+        errorBox.classList.add('hidden');
+        errorBox.innerText = "";
+        
+        // Scroll to the message
+        messageBox.scrollIntoView({ behavior: 'smooth' });
+        
+        // Add celebration effect
+        createHeart();
+        createHeart();
+        
+        // Play unlock sound (optional)
+        const unlockSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+        unlockSound.play().catch(() => {}); // Ignore if audio fails
+      } else {
+        messageBox.classList.add('hidden');
+        errorBox.classList.remove('hidden');
+        errorBox.innerText = "❌ Incorrect PIN. Please try again.";
+        
+        // Shake animation for wrong PIN
+        const input = document.getElementById("pinInput");
+        input.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+          input.style.animation = '';
+        }, 500);
+      }
+    }
+    
+    // Language Toggle System
+    let currentLanguage = 'en';
+    const languageToggle = document.getElementById('language-toggle');
+    const languageIcon = document.getElementById('language-icon');
+    
+    languageToggle.addEventListener('click', () => {
+      currentLanguage = currentLanguage === 'en' ? 'bn' : 'en';
+      languageIcon.textContent = currentLanguage.toUpperCase();
+      updateLanguage();
+    });
+    
+    function updateLanguage() {
+      // Update all elements with data attributes
+      const elements = document.querySelectorAll('[data-en][data-bn]');
+      elements.forEach(element => {
+        const text = currentLanguage === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-bn');
+        if (element.tagName === 'INPUT') {
+          element.placeholder = currentLanguage === 'en' ? element.getAttribute('data-en-placeholder') : element.getAttribute('data-bn-placeholder');
+        } else {
+          element.innerHTML = text;
+        }
+      });
+      
+      // Update reject button texts
+      const rejectTexts = currentLanguage === 'en' ? [
+        '💔 Reject',
+        '😢 No way',
+        '😭 Please?',
+        '🥺 Really?',
+        '😅 You sure?',
+        '🤔 Think again',
+        '😇 Pretty please?',
+        '💕 Just say yes!'
+      ] : [
+        '💔 প্রত্যাখ্যান',
+        '😢 কোনভাবেই না',
+        '😭 দয়া করে?',
+        '🥺 সত্যিই?',
+        '😅 তুমি নিশ্চিত?',
+        '🤔 আবার ভাবো',
+        '😇 দয়া করে বলো?',
+        '💕 শুধু হ্যাঁ বলো!'
+      ];
+      
+      // Update error messages
+      const errorMessages = document.querySelectorAll('#errorMessage');
+      errorMessages.forEach(error => {
+        if (error.innerText.includes('Incorrect PIN')) {
+          error.innerText = currentLanguage === 'en' ? '❌ Incorrect PIN. Please try again.' : '❌ ভুল পিন। আবার চেষ্টা করুন।';
+        }
+      });
+    }
+    
+    // Create Sparkle Effect
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      document.querySelector('.bg-animation').appendChild(sparkle);
+      
+      setTimeout(() => {
+        if (sparkle.parentNode) {
+          sparkle.parentNode.removeChild(sparkle);
+        }
+      }, 3000);
+    }
+    
+    // Create sparkles periodically
+    setInterval(createSparkle, 2000);
+    
+    // Sender Reveal Function
+    const revealSenderBtn = document.getElementById('reveal-sender-btn');
+    const senderInfo = document.getElementById('sender-info');
+    
+    revealSenderBtn.addEventListener('click', function() {
+      // Hide the button
+      this.style.display = 'none';
+      
+      // Show sender info with animation
+      senderInfo.classList.remove('hidden');
+      senderInfo.scrollIntoView({ behavior: 'smooth' });
+      
+      // Add celebration effects
+      createHeart();
+      createHeart();
+      createHeart();
+      
+      // Play reveal sound (optional)
+      const revealSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+      revealSound.play().catch(() => {}); // Ignore if audio fails
+    });
+    
+    // Add shake animation for wrong PIN
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+      
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Birthday wish functionality
+    function showBirthdayMessage() {
+      const message = document.getElementById('birthday-message');
+      const btn = document.getElementById('birthday-wish-btn');
+      
+      // Play celebration sound
+      const celebrationSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+      celebrationSound.play().catch(() => {});
+      
+      // Hide button and show message with animation
+      btn.style.display = 'none';
+      message.classList.remove('hidden');
+      message.style.animation = 'fadeInUp 1s ease-out';
+      
+      // Add confetti effect
+      createConfetti();
+      
+      // Scroll to message
+      setTimeout(() => {
+        message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 500);
+    }
+    
+    // Confetti effect for birthday
+    function createConfetti() {
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+      const confettiCount = 100;
+      
+      for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '-10px';
+          confetti.style.width = '10px';
+          confetti.style.height = '10px';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.borderRadius = '50%';
+          confetti.style.pointerEvents = 'none';
+          confetti.style.zIndex = '9999';
+          confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+          
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
+        }, i * 50);
+      }
+    }
+    
+    // Add birthday button event listener
+    const birthdayBtn = document.getElementById('birthday-wish-btn');
+    if (birthdayBtn) {
+      birthdayBtn.addEventListener('click', showBirthdayMessage);
+    }
+    
+    // Image loading enhancement
+    function enhanceImageLoading() {
+      const images = document.querySelectorAll('img');
+      
+      images.forEach(img => {
+        // Add loading class initially
+        img.classList.add('loading');
+        
+        // Create placeholder if image fails to load
+        const placeholder = document.createElement('div');
+        placeholder.className = 'image-placeholder';
+        placeholder.innerHTML = '🖼️';
+        
+        // Handle image load success
+        img.addEventListener('load', function() {
+          this.classList.remove('loading');
+          this.classList.add('loaded');
+        });
+        
+        // Handle image load error
+        img.addEventListener('error', function() {
+          console.warn('Image failed to load:', this.src);
+          this.style.display = 'none';
+          
+          // Add placeholder
+          const container = this.parentElement;
+          if (container) {
+            container.style.position = 'relative';
+            container.appendChild(placeholder);
+          }
+        });
+        
+        // Force reload if image is already loaded
+        if (img.complete) {
+          img.classList.remove('loading');
+          img.classList.add('loaded');
+        }
+      });
+    }
+    
+    // Initialize image loading enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+      enhanceImageLoading();
+      
+      // Retry loading images after a short delay
+      setTimeout(() => {
+        const failedImages = document.querySelectorAll('img.loading');
+        failedImages.forEach(img => {
+          const originalSrc = img.src;
+          img.src = '';
+          setTimeout(() => {
+            img.src = originalSrc;
+          }, 100);
+        });
+      }, 1000);
+    });
+  </script>
+</body>
+</html> 
